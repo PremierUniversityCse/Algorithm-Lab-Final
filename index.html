@@ -1,0 +1,356 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .exam-wrap {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    color: var(--color-text-primary);
+    padding: 2rem 0 3rem;
+    max-width: 640px;
+  }
+
+  .exam-header {
+    border-top: 2.5px solid var(--color-text-primary);
+    border-bottom: 0.5px solid var(--color-border-secondary);
+    padding: 1rem 0 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .exam-meta {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 0.4rem;
+  }
+
+  .exam-title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .exam-info {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 0.75rem;
+  }
+
+  .exam-info span::before {
+    color: var(--color-text-tertiary);
+    margin-right: 4px;
+  }
+
+  .question {
+    margin-bottom: 2.25rem;
+    padding-bottom: 2rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+  }
+
+  .question:last-child {
+    border-bottom: none;
+  }
+
+  .q-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+  }
+
+  .q-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .q-marks {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    background: var(--color-background-secondary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 0.5px solid var(--color-border-tertiary);
+  }
+
+  .q-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .q-intro {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 1rem 0 0.4rem;
+  }
+
+  .io-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .io-box {
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+
+  .io-box .io-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0.5rem;
+  }
+
+  .io-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .io-box ul li {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    padding: 2px 0;
+    line-height: 1.5;
+  }
+
+  .io-box ul li code {
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+
+  .tasks-list {
+    counter-reset: task-counter;
+    list-style: none;
+    padding: 0;
+  }
+
+  .tasks-list li {
+    counter-increment: task-counter;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    padding: 4px 0;
+  }
+
+  .tasks-list li::before {
+    content: counter(task-counter) ".";
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    min-width: 16px;
+    padding-top: 2px;
+  }
+
+  .constraint-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+  }
+
+  .constraint-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: 4px;
+    padding: 3px 8px;
+  }
+
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-top: 2px solid var(--color-text-primary);
+    margin-top: 0.5rem;
+  }
+
+  .total-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .total-marks {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+</style>
+
+<div class="exam-wrap">
+  <div class="exam-header">
+    <div class="exam-meta">Algorithm Lab · Final Examination</div>
+    <div class="exam-title">Sorting, Dynamic Programming &amp; Binary Search</div>
+    <div class="exam-info">
+      <span>Duration: 1 hour</span>
+      <span>Total: 30 marks</span>
+      <span>All questions compulsory</span>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="question">
+    <div class="q-header">
+      <span class="q-label">Question 1</span>
+      <span class="q-marks">10 marks</span>
+    </div>
+    <div class="q-title">Merge Sort with Performance Metrics</div>
+    <p class="q-intro">Implement merge sort from scratch and instrument it to report internal performance data.</p>
+
+    <div class="io-grid">
+      <div class="io-box">
+        <div class="io-head">Input</div>
+        <ul>
+          <li>Integer <code>n</code></li>
+          <li>Array of <code>n</code> integers</li>
+        </ul>
+      </div>
+      <div class="io-box">
+        <div class="io-head">Output</div>
+        <ul>
+          <li>Sorted array</li>
+          <li>Comparison count</li>
+          <li>Merge operation count</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label">Tasks</div>
+    <ol class="tasks-list">
+      <li>Implement merge sort manually — no library sort functions.</li>
+      <li>Print the sorted array.</li>
+      <li>Print the total number of element comparisons made.</li>
+      <li>Print the total number of merge operations performed.</li>
+    </ol>
+
+    <div class="constraint-row">
+      <span class="constraint-tag">1 ≤ n ≤ 10⁵</span>
+      <span class="constraint-tag">integers may be negative</span>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question">
+    <div class="q-header">
+      <span class="q-label">Question 2</span>
+      <span class="q-marks">10 marks</span>
+    </div>
+    <div class="q-title">0/1 Knapsack — DP Table &amp; Item Recovery</div>
+    <p class="q-intro">Solve the 0/1 knapsack problem using dynamic programming and reconstruct the exact set of chosen items.</p>
+
+    <div class="io-grid">
+      <div class="io-box">
+        <div class="io-head">Input</div>
+        <ul>
+          <li>Integer <code>n</code> — number of items</li>
+          <li>Integer <code>W</code> — capacity</li>
+          <li>Array <code>weight[n]</code></li>
+          <li>Array <code>value[n]</code></li>
+        </ul>
+      </div>
+      <div class="io-box">
+        <div class="io-head">Output</div>
+        <ul>
+          <li>Maximum achievable value</li>
+          <li>Indices of selected items</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label">Tasks</div>
+    <ol class="tasks-list">
+      <li>Build the full DP table of size <code>(n+1) × (W+1)</code>.</li>
+      <li>Compute and print the maximum value.</li>
+      <li>Backtrack through the DP table to recover and print the selected item indices.</li>
+    </ol>
+
+    <div class="constraint-row">
+      <span class="constraint-tag">1 ≤ n ≤ 100</span>
+      <span class="constraint-tag">1 ≤ W ≤ 10⁴</span>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question">
+    <div class="q-header">
+      <span class="q-label">Question 3</span>
+      <span class="q-marks">10 marks</span>
+    </div>
+    <div class="q-title">Binary Search — Multi-Query with Comparison Count</div>
+    <p class="q-intro">Apply binary search across multiple queries on a pre-sorted array and track total comparisons.</p>
+
+    <div class="io-grid">
+      <div class="io-box">
+        <div class="io-head">Input</div>
+        <ul>
+          <li>Integer <code>n</code></li>
+          <li>Sorted array of <code>n</code> integers</li>
+          <li>Integer <code>q</code> — query count</li>
+          <li><code>q</code> target values</li>
+        </ul>
+      </div>
+      <div class="io-box">
+        <div class="io-head">Output</div>
+        <ul>
+          <li>0-based index per query, or <code>-1</code> if not found</li>
+          <li>Total comparisons across all queries</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-label">Tasks</div>
+    <ol class="tasks-list">
+      <li>For each query, perform binary search on the sorted array.</li>
+      <li>Print the 0-based index of the target, or <code>-1</code> if absent.</li>
+      <li>After all queries, print the cumulative comparison count.</li>
+    </ol>
+
+    <div class="constraint-row">
+      <span class="constraint-tag">1 ≤ n ≤ 10⁵</span>
+      <span class="constraint-tag">1 ≤ q ≤ 10³</span>
+    </div>
+  </div>
+
+  <div class="total-row">
+    <span class="total-label">Total marks</span>
+    <span class="total-marks">100</span>
+  </div>
+</div>
